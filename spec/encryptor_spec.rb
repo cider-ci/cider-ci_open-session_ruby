@@ -7,26 +7,32 @@ describe CiderCi::OpenSession::Encryptor do
     end
   end
 
-  let :encrypted_object do
-    'wHGrlC7kOvd0T90uNlEc_A~jfUriLEgN7mhM3eLQJ6WsA'
-  end
-
-  let :message_object do
-    { 'x' => 42 }
+  def rand_message_object
+    { 'a' => rand(10).times.map{ rand(100) },
+      'b' => rand(2).zero?,
+      'rand-string' => rand(100).times.map do
+        (' '.ord + (rand '~'.ord - ' '.ord)).chr
+      end.join,
+      'f' => rand,
+      'i' => rand(100) }
   end
 
   describe 'back-compat by decrypting a fixed message'  do
     it 'returns something equal the encrypted object' do
       expect(CiderCi::OpenSession::Encryptor.decrypt(
-               'secret', encrypted_object)).to be == message_object
+               'secret', 'wHGrlC7kOvd0T90uNlEc_A~jfUriLEgN7mhM3eLQJ6WsA'))
+        .to be == { 'x' => 42 }
     end
   end
 
   describe 'encrypt and decrypt cycle' do
     it 'returns an equivalent of the original message' do
-      expect(CiderCi::OpenSession::Encryptor.decrypt(
-               'secret', CiderCi::OpenSession::Encryptor.encrypt(
-                           'secret', message_object))).to be == message_object
+      100.times do
+        rmo = rand_message_object
+        expect(CiderCi::OpenSession::Encryptor.decrypt(
+                 'secret', CiderCi::OpenSession::Encryptor.encrypt(
+                             'secret', rmo))).to be == rmo
+      end
     end
   end
 end

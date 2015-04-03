@@ -13,7 +13,7 @@ module CiderCi
           case msg.length % 4
           when 2
             msg + '=='
-          when 1
+          when 3
             msg + '='
           else
             msg
