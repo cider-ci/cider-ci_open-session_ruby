@@ -1,14 +1,16 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "cider_ci/open_session/rails"
+require 'bundler/setup'
+require 'cider_ci/open_session/rails'
+require 'cider_ci/open_session/encoder'
+require 'cider_ci/open_session/encryptor'
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 
 # (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
+require "pry"
+Pry.start
 
-require "irb"
-IRB.start
+#require 'irb'
+#IRB.start

@@ -1,5 +1,5 @@
-require "cider_ci/open_session/rails/version"
-require "cider_ci/open_session/encoder"
+require 'cider_ci/open_session/rails/version'
+require 'cider_ci/open_session/encoder'
 require 'openssl'
 require 'digest/sha1'
 require 'digest/sha2'
@@ -11,9 +11,9 @@ module CiderCi
       include CiderCi::OpenSession::Encoder
       extend self
 
-      def decrypt(secret, encrypted_message) 
+      def decrypt(secret, encrypted_message)
         cipher = create_cipher :decrypt, secret
-        encrypted_data, iv = encrypted_message.split("~").map{|m| decode(m) }
+        encrypted_data, iv = encrypted_message.split('~').map { |m| decode(m) }
         cipher.iv = iv
         decrypted_data = cipher.update(encrypted_data)
         decrypted_data << cipher.final
@@ -28,15 +28,14 @@ module CiderCi
         "#{encode encrypted_data}~#{encode iv}"
       end
 
-      private 
+      private
 
-      def create_cipher mode, secret
+      def create_cipher(mode, secret)
         OpenSSL::Cipher::Cipher.new('aes-256-cbc').tap do |c|
           c.send mode
           c.key = Digest::SHA256.digest(secret)
         end
       end
-
     end
   end
 end

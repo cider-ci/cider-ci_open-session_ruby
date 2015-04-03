@@ -1,4 +1,4 @@
-require "cider_ci/open_session/rails/version"
+require 'cider_ci/open_session/rails/version'
 
 module CiderCi
   module OpenSession
