@@ -9,8 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Thomas Schank']
   spec.email         = ['DrTom@schank.ch']
 
-  spec.summary       = 'Platform and language agnostic encoding, encryption and signatures for session handling.'
-  spec.homepage      = "https://github.com/cider-ci/cider-ci_open-session_rails"
+  spec.summary       = 'Platform and language agnostic encoding,' \
+                        ' encryption and signatures for session handling.'
+  spec.homepage      = 'https://github.com/cider-ci/cider-ci_open-session_rails'
   spec.license       = 'AGPL'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
