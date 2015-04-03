@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'cider_ci/open_session/rails'
 require 'cider_ci/open_session/encoder'
 require 'cider_ci/open_session/encryptor'
+require 'cider_ci/open_session/signature'
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.

@@ -8,7 +8,7 @@ describe CiderCi::OpenSession::Encryptor do
   end
 
   def rand_message_object
-    { 'a' => rand(10).times.map{ rand(100) },
+    { 'a' => rand(10).times.map { rand(100) },
       'b' => rand(2).zero?,
       'rand-string' => rand(100).times.map do
         (' '.ord + (rand '~'.ord - ' '.ord)).chr

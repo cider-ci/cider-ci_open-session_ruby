@@ -13,7 +13,7 @@ module CiderCi
 
       def decrypt(secret, encrypted_message)
         cipher = create_cipher :decrypt, secret
-        encrypted_data, iv = encrypted_message.split('~').map { |m| decode(m) }
+        iv, encrypted_data = encrypted_message.split('~').map { |m| decode(m) }
         cipher.iv = iv
         decrypted_data = cipher.update(encrypted_data)
         decrypted_data << cipher.final
@@ -25,7 +25,7 @@ module CiderCi
         iv = cipher.random_iv
         encrypted_data = cipher.update(message_object.to_json)
         encrypted_data << cipher.final
-        "#{encode encrypted_data}~#{encode iv}"
+        "#{encode iv}~#{encode encrypted_data}"
       end
 
       private
