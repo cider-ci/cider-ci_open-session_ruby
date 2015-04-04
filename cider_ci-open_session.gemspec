@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cider_ci/open_session/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'cider_ci-open_session-rails'
+  spec.name          = 'cider_ci-open_session'
   spec.version       = CiderCi::OpenSession::VERSION
   spec.authors       = ['Thomas Schank']
   spec.email         = ['DrTom@schank.ch']
