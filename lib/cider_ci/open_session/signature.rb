@@ -1,7 +1,7 @@
 module CiderCi
   module OpenSession
     module Signature
-      extend self 
+      extend self
 
       def create(secret, message)
         OpenSSL::HMAC.hexdigest(

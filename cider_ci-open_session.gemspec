@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cider_ci/open_session/rails/version'
+require 'cider_ci/open_session/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'cider_ci-open_session-rails'
-  spec.version       = CiderCi::OpenSession::Rails::VERSION
+  spec.version       = CiderCi::OpenSession::VERSION
   spec.authors       = ['Thomas Schank']
   spec.email         = ['DrTom@schank.ch']
 
@@ -26,6 +26,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 0.0'
   spec.add_development_dependency 'rspec', '~> 3.2'
   spec.add_development_dependency 'pry'
-
-  spec.add_runtime_dependency 'rails', '~> 4.0'
 end

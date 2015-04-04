@@ -1,4 +1,3 @@
-require 'cider_ci/open_session/rails/version'
 require 'cider_ci/open_session/encoder'
 require 'openssl'
 require 'digest/sha1'
