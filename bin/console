@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
-require 'cider_ci/open_session/rails'
 require 'cider_ci/open_session/encoder'
 require 'cider_ci/open_session/encryptor'
 require 'cider_ci/open_session/signature'

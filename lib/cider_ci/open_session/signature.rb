@@ -1,6 +1,9 @@
 module CiderCi
   module OpenSession
     module Signature
+      class ValidationError < StandardError
+      end
+
       extend self
 
       def create(secret, message)
@@ -15,7 +18,7 @@ module CiderCi
 
       def validate!(signature, secret, message)
         unless valid?(signature, secret, message)
-          fail 'Signature validation failed!'
+          fail ValidationError, 'Signature validation failed!'
         end
       end
     end

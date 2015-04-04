@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'cider_ci/open_session/encryptor'
 
 describe CiderCi::OpenSession::Encryptor do
