@@ -43,7 +43,7 @@ describe CiderCi::OpenSession::Signature do
 
   describe 'fixed secrete, message and signature' do
     let :signature do
-      '0caf649feee4953d87bf903ac1176c45e028df16'
+      CiderCi::OpenSession::Encoder.decode "i19IcCmVwVmMVz2x4hhmqbgl1KeU0WnXBgoDYFeWNgs"
     end
     it 'is valid' do
       expect(

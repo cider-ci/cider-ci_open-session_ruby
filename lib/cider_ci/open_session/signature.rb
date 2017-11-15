@@ -1,3 +1,5 @@
+require 'openssl'
+
 module CiderCi
   module OpenSession
     module Signature
@@ -7,8 +9,8 @@ module CiderCi
       extend self
 
       def create(secret, message)
-        OpenSSL::HMAC.hexdigest(
-          OpenSSL::Digest.new('sha1'),
+        OpenSSL::HMAC.digest(
+          OpenSSL::Digest.new('sha256'),
           secret, message)
       end
 

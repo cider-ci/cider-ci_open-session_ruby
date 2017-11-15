@@ -1,7 +1,6 @@
 require 'cider_ci/open_session/encoder'
+require 'cider_ci/open_session/signature'
 require 'openssl'
-require 'digest/sha1'
-require 'digest/sha2'
 require 'json'
 
 module CiderCi
@@ -11,8 +10,9 @@ module CiderCi
       extend self
 
       def decrypt(secret, encrypted_message)
+        iv, encrypted_data, sig = encrypted_message.split('~').map { |m| decode(m) }
+        CiderCi::OpenSession::Signature.validate! sig, secret, encrypted_data
         cipher = create_cipher :decrypt, secret
-        iv, encrypted_data = encrypted_message.split('~').map { |m| decode(m) }
         cipher.iv = iv
         decrypted_data = cipher.update(encrypted_data)
         decrypted_data << cipher.final
@@ -24,7 +24,8 @@ module CiderCi
         iv = cipher.random_iv
         encrypted_data = cipher.update(message_object.to_json)
         encrypted_data << cipher.final
-        "#{encode iv}~#{encode encrypted_data}"
+        sig = CiderCi::OpenSession::Signature.create secret, encrypted_data
+        "#{encode iv}~#{encode encrypted_data}~#{encode sig}"
       end
 
       private

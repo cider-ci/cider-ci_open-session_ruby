@@ -22,25 +22,41 @@ describe CiderCi::OpenSession::Encryptor do
       'i' => rand(100) }
   end
 
-  let :fixed_object do
-    { 'a' => [81, 46, 60, 44, 6, 54],
-      'b' => false,
-      'rand-string' => 'S?OsOT<h(7&$$@R<Saa;',
-      'f' => 0.27856255867921376,
-      'i' => 29 }
-  end
-
-  let :encrypt_of_fixed_object do
-    '__uAbdDGfcBYLcx-xZGbGw~Br17ojhdaJKfBVr76WeXADdWtDrXRFmdiu91e98YSz84X1ma' \
-    '-41QUcGiYk7IEGwELFXdWN4VY_f9rcuuMBd7-zviX65eaX2MKs9fwk2CcRI8z9p4twqDV44' \
-    'YIFvi5A7F4olio5DczkxTqacg6jgLEQ'
-  end
-
   describe 'back-compat by decrypting a fixed message'  do
+    let :fixed_object do
+      { 'a' => [81, 46, 60, 44, 6, 54],
+        'b' => false,
+        'rand-string' => 'S?OsOT<h(7&$$@R<Saa;',
+        'f' => 0.27856255867921376,
+        'i' => 29 }
+    end
+
+    let :encrypt_of_fixed_object do
+      'EGB-1PbDbeDzAc9QO-Q96Q' \
+        '~KjZSPkHhDZfy4ueX7vj56Ef4aQHEhXZu1Z2pcuN3UMNpXUMviQDBgD4aUhrGryvbA38_pl5PaqGpOJQR1bkCuB-1eFMs_RCs9N3Fl4b3G0K8BS5OTM3BJdz1l0WLcSaDLcjWQJjrIE-Kkw5JxsLnpw' \
+        '~BdyQPeU32rCuPp61lFVgzWW7Dq2XLZ-hkA-1BTzBD0s'
+    end
+
     it 'returns something equal the encrypted object' do
       expect(CiderCi::OpenSession::Encryptor.decrypt(
-               'secret', encrypt_of_fixed_object))
+        'secret', encrypt_of_fixed_object))
         .to be == fixed_object
+    end
+  end
+
+  describe 'a forged encrypted message ' do
+    let :encrypt_of_forged_message do
+      'EGB-1PbDbeDzAc9QO-Q96Q' +
+        '~I-BjfcOuHBmrmP0OKqWqqg' +
+        '~BdyQPeU32rCuPp61lFVgzWW7Dq2XLZ-hkA-1BTzBD0s'
+    end
+    describe 'encrypting it' do
+      it 'throws CiderCi::OpenSession::Signature::ValidationError' do
+        expect{
+          CiderCi::OpenSession::Encryptor.decrypt(
+            'secret', encrypt_of_forged_message)
+        }.to raise_error(CiderCi::OpenSession::Signature::ValidationError)
+      end
     end
   end
 
